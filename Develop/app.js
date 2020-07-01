@@ -11,6 +11,78 @@ const outputPath = path.join(OUTPUT_DIR, "team.html");
 const render = require("./lib/htmlRenderer");
 
 
+var employees = [];
+
+console.log("Please build your team.");
+inquirer
+    .prompt([
+        {
+            type:"input",
+            message:"What is your manager's name?",
+            name: "managerName"
+        },
+        {
+            type:"input",
+            message:"What is your manager's i.d.?",
+            name: "managerID"
+        },
+        {
+            type:"input",
+            message:"What is your manager's email?",
+            name: "managerEmail"
+        },
+        {
+            type:"input",
+            message:"What is your manager's office number?",
+            name: "managerON"
+        }
+    ])
+    .then(answers => {
+        var newManager = new Manager(answers.name, answers.id, answer.email);
+        employees.push(newManager);
+        var exit = false;
+
+        while (exit !== true) {
+            // Ask what kind of employee to add - new inquirer
+            // Engineer
+                // Ask engineer specific questions (new inquirer) inquirer.prompt([])
+                // create a new engineer with given data (.then)
+                // push new engineer to employees array
+            // Intern
+                // Same thing but for interns
+            // I don't wanna
+                // exit = true;
+        }
+    });
+
+// inquirer // 1
+// // Create a new Manager
+// // Answers come back as 
+// .then(function(answers) {
+//     var newManager = new Manager(answers.name, answers.id, answer.email);
+//     // push to employees
+//     employees.push(newManager);
+//     var exit = false;
+//     // Loop starts while(exit !== true) OR recursion
+//     // Ask which type of employee
+//     inquirer // 2
+//         // A. Engineer (function)
+//             // Create engineer inquirer prompt
+//             inquirer // 3
+//             var newEngineer = new Engineer(answers.name...)
+//             // push to employees
+//         // B. Intern
+//             // Create an intern inquirer
+//             inquirer // 4
+//             var newIntern = new Intern(answers.name...)
+//             // push to employees
+//         // C. I don't want to add anymore
+//             // Escape the loop
+//             exit = true;
+// }
+// const result = render.render(employees);
+
+
 // Write code to use inquirer to gather information about the development team members,
 // and to create objects for each team member (using the correct classes as blueprints!)
 
