@@ -55,6 +55,18 @@ inquirer
         }
     });
 
+    inquirer
+    .prompt{
+        .prompt([
+            {
+                type:"choices",
+                message:"What type of employee would you like to add",
+                name: ["engineer"], ["intern"], ["I don't want to add anymore"] //check this
+            },
+         
+
+    }
+
 // inquirer // 1
 // // Create a new Manager
 // // Answers come back as 
