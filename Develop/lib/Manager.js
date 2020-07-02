@@ -3,13 +3,20 @@ const Employee = require("./Employee.js");
 
 // A class is like a template for creating new data types
 class Manager extends Employee {
-    constructor(name, id, email) {
+    constructor(name, id, email, officeNumber) {
         super(name, id, email);
+        this.officeNumber = officeNumber;
+        this.role = "Manager";
     }
 
     sayName() {
         return super.sayName() + "I am a manager!"
     }
+
+    getOfficeNumber() {
+        return this.officeNumber;
+    }
+
 }
 
 
