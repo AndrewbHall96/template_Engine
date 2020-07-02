@@ -12,6 +12,8 @@ class Manager extends Employee {
     }
 }
 
+
+module.exports = Manager;
 //      OBJECT             CLASS
 // let new_manager = new Manager("Andrew Hall", 1, "superawesome@email.com");
 // console.log(new_manager.sayName());

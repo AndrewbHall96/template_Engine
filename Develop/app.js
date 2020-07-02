@@ -17,55 +17,68 @@ console.log("Please build your team.");
 inquirer
     .prompt([
         {
-            type:"input",
-            message:"What is your manager's name?",
+            type: "input",
+            message: "What is your manager's name?",
             name: "managerName"
         },
         {
-            type:"input",
-            message:"What is your manager's i.d.?",
+            type: "input",
+            message: "What is your manager's i.d.?",
             name: "managerID"
         },
         {
-            type:"input",
-            message:"What is your manager's email?",
+            type: "input",
+            message: "What is your manager's email?",
             name: "managerEmail"
         },
         {
-            type:"input",
-            message:"What is your manager's office number?",
+            type: "input",
+            message: "What is your manager's office number?",
             name: "managerON"
         }
     ])
     .then(answers => {
-        var newManager = new Manager(answers.name, answers.id, answer.email);
+        var newManager = new Manager(answers.name, answers.id, answers.email);
         employees.push(newManager);
         var exit = false;
 
-        while (exit !== true) {
-            // Ask what kind of employee to add - new inquirer
-            // Engineer
-                // Ask engineer specific questions (new inquirer) inquirer.prompt([])
-                // create a new engineer with given data (.then)
-                // push new engineer to employees array
-            // Intern
-                // Same thing but for interns
-            // I don't wanna
-                // exit = true;
-        }
+        //while loop separate condition. We control where/when we incement the 'i'
+        
+        //defining new variable which is set to the return of our new function. If/else determines exit or ask again.
+     var answer = question()
+
+        
+
     });
 
+
+function question() {
     inquirer
-    .prompt{
         .prompt([
             {
-                type:"choices",
-                message:"What type of employee would you like to add",
-                name: ["engineer"], ["intern"], ["I don't want to add anymore"] //check this
-            },
-         
+                type: "list",
+                message: "What type of employee would you like to add",
+                name: "employee template",
+                choices: [`engineer`, `intern`, `I don't want to add anymore`]
+            
+            }
+        ])
 
-    }
+        .then(newEmployee => {
+            console.log(newEmployee)
+//recursion
+            if(newEmployee == "I don't want to add anymore") {
+                return
+                }
+                else {
+                    return question()
+                }
+
+            return newEmployee
+        })
+
+}
+
 
 // inquirer // 1
 // // Create a new Manager

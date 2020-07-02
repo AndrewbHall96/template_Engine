@@ -1,4 +1,4 @@
-const Intern = require("./Inten.js");
+
 const Employee = require("./Employee.js");
 // TODO: Write code to define and export the Intern class.  HINT: This class should inherit from Employee.
 
@@ -11,3 +11,5 @@ class Intern extends Employee {
         return super.sayName() + "I am a Intern!"
     }
 }
+
+module.exports = Intern;

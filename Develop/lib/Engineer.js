@@ -9,3 +9,5 @@ class Engineer extends Employee {
         return super.sayName() + "I am a engineer!"
     }
 }
+
+module.exports = Engineer;
