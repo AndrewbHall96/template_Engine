@@ -43,11 +43,11 @@ inquirer
         var exit = false;
 
         //while loop separate condition. We control where/when we incement the 'i'
-        
-        //defining new variable which is set to the return of our new function. If/else determines exit or ask again.
-     var answer = question()
 
-        
+        //defining new variable which is set to the return of our new function. If/else determines exit or ask again.
+        var answer = question()
+
+
 
     });
 
@@ -58,28 +58,98 @@ function question() {
             {
                 type: "list",
                 message: "What type of employee would you like to add",
-                name: "employee template",
+                name: "employeeType",
                 choices: [`engineer`, `intern`, `I don't want to add anymore`]
-            
+
             }
         ])
-
         .then(newEmployee => {
-            console.log(newEmployee)
-//recursion
-            if(newEmployee == "I don't want to add anymore") {
-                return
-                }
-                else {
-                    return question()
-                }
+            console.log(newEmployee.employeeType)
+            //recursion
+            if (newEmployee.employeeType == "I don't want to add anymore") {
+                return;
+            }
+
+            else if (newEmployee.employeeType == "engineer") {
+                return engineerQuestion();
+            }
+
+            // else (newEmployee.employeeType == "intern") {
+            //     return internQuestion()
+            // }
 
             return newEmployee
         })
 
 }
 
+function engineerQuestion() {
+    inquirer
+        .prompt([
+            {
+                type: "input",
+                message: "What is your engineer's's name?",
+                name: "name"
+            },
+            {
+                type: "input",
+                message: "What is your engineer's i.d.?",
+                name: "id"
+            },
+            {
+                type: "input",
+                message: "What is your engineer's email?",
+                name: "email"
+            },
+            {
+                type: "input",
+                message: "What is your engineer's GitHub?",
+                name: "git"
+            }
+        ])
+        .then(answers => {
+            var newEngineer = new Engineer(answers.name, answers.id, answers.email, answers.git);
+            employees.push(newEngineer);
+            var exit = false;
 
+            var answer = question()
+        })
+}
+
+function internQuestion() {
+    inquirer
+        .prompt([
+            {
+                type: "input",
+                message: "What is your intern's's name?",
+                name: "name"
+            },
+            {
+                type: "input",
+                message: "What is your intern's i.d.?",
+                name: "id"
+            },
+            {
+                type: "input",
+                message: "What is your intern's email?",
+                name: "email"
+            },
+            {
+                type: "input",
+                message: "What is your intern's GitHub?",
+                name: "git"
+            }
+        ])
+        .then(answers => {
+            var newIntern = new Intern(answers.name, answers.id, answers.email, answers.git);
+            employees.push(newIntern);
+            var exit = false;
+
+            var answer = question()
+        })
+}
+
+console.log(employees);
 // inquirer // 1
 // // Create a new Manager
 // // Answers come back as 
