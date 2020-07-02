@@ -9,7 +9,7 @@ const OUTPUT_DIR = path.resolve(__dirname, "output");
 const outputPath = path.join(OUTPUT_DIR, "team.html");
 
 const render = require("./lib/htmlRenderer");
-
+const Employee = require("./lib/Employee");
 
 var employees = [];
 
@@ -19,38 +19,34 @@ inquirer
         {
             type: "input",
             message: "What is your manager's name?",
-            name: "managerName"
+            name: "name"
         },
         {
-            type: "input",
+            type: "number",
             message: "What is your manager's i.d.?",
-            name: "managerID"
+            name: "id"
         },
         {
             type: "input",
             message: "What is your manager's email?",
-            name: "managerEmail"
+            name: "email"
         },
         {
             type: "input",
             message: "What is your manager's office number?",
-            name: "managerON"
+            name: "officeNumber"
         }
     ])
     .then(answers => {
-        var newManager = new Manager(answers.name, answers.id, answers.email);
+        var newManager = new Manager(answers.name, answers.id, answers.email, answers.officeNumber);
         employees.push(newManager);
         var exit = false;
 
         //while loop separate condition. We control where/when we incement the 'i'
 
         //defining new variable which is set to the return of our new function. If/else determines exit or ask again.
-        var answer = question()
-
-
-
+        var answer = question();
     });
-
 
 function question() {
     inquirer
@@ -64,22 +60,31 @@ function question() {
             }
         ])
         .then(newEmployee => {
-            console.log(newEmployee.employeeType)
             //recursion
             if (newEmployee.employeeType == "I don't want to add anymore") {
+                let html = render(employees);
+                fs.writeFile(outputPath, html, err => {
+                    if (err) throw err;
+                    console.log('Saved!');
+                });
+
                 return;
             }
 
             else if (newEmployee.employeeType == "engineer") {
                 return engineerQuestion();
             }
+            else { // Only option left is internQuestion
+                return internQuestion()
 
-            // else (newEmployee.employeeType == "intern") {
-            //     return internQuestion()
-            // }
+                // which is = to 
+                // else if (newEmployee.employeeType == "inter") {
+                //  return engineerQuestion();
+                // }
+            }
 
             return newEmployee
-        })
+        });
 
 }
 
@@ -92,7 +97,7 @@ function engineerQuestion() {
                 name: "name"
             },
             {
-                type: "input",
+                type: "number",
                 message: "What is your engineer's i.d.?",
                 name: "id"
             },
@@ -104,11 +109,11 @@ function engineerQuestion() {
             {
                 type: "input",
                 message: "What is your engineer's GitHub?",
-                name: "git"
+                name: "github"
             }
         ])
         .then(answers => {
-            var newEngineer = new Engineer(answers.name, answers.id, answers.email, answers.git);
+            var newEngineer = new Engineer(answers.name, answers.id, answers.email, answers.github);
             employees.push(newEngineer);
             var exit = false;
 
@@ -125,7 +130,7 @@ function internQuestion() {
                 name: "name"
             },
             {
-                type: "input",
+                type: "number",
                 message: "What is your intern's i.d.?",
                 name: "id"
             },
@@ -136,12 +141,12 @@ function internQuestion() {
             },
             {
                 type: "input",
-                message: "What is your intern's GitHub?",
-                name: "git"
+                message: "What is the name of your intern's school?",
+                name: "school"
             }
         ])
         .then(answers => {
-            var newIntern = new Intern(answers.name, answers.id, answers.email, answers.git);
+            var newIntern = new Intern(answers.name, answers.id, answers.email, answers.school);
             employees.push(newIntern);
             var exit = false;
 
@@ -149,7 +154,9 @@ function internQuestion() {
         })
 }
 
-console.log(employees);
+
+
+
 // inquirer // 1
 // // Create a new Manager
 // // Answers come back as 
